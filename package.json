@@ -1,10 +1,13 @@
 {
   "name": "book-my-time",
   "version": "1.0.0",
-  "description": "appointment scheduling app",
-  "main": "app.ts",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "start": "cd ./client && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -24,15 +27,29 @@
     "url": "https://github.com/bartektelec/book-my-time/issues"
   },
   "homepage": "https://github.com/bartektelec/book-my-time#readme",
+  "dependencies": {
+    "react-scripts": "3.4.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "~3.7.2",
+    "express": "^4.17.1",
+    "ip": "^1.1.5",
+    "mongoose": "^5.10.0",
+    "passport": "^0.4.1"
+  },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
     "@tsconfig/node12": "^1.0.7",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
     "@types/express": "^4.17.7",
     "@types/jest": "^26.0.10",
     "@types/mongoose": "^5.7.36",
     "@types/node": "^14.6.0",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "@typescript-eslint/parser": "^3.9.1",
-    "eslint": "^7.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-standard": "^14.1.1",
@@ -42,18 +59,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
-    "eslint-plugin-standard": "^4.0.1",
-    "jest": "^26.4.2",
-    "nodemon": "^2.0.4",
-    "prettier": "^2.0.5",
-    "ts-jest": "^26.2.0",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "ip": "^1.1.5",
-    "mongoose": "^5.10.0",
-    "passport": "^0.4.1"
+    "eslint-plugin-standard": "^4.0.1"
   }
 }
