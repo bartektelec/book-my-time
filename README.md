@@ -54,11 +54,11 @@ Before installing the project you will need to install the following:
 1. Clone this repo
 2. Install all needed dependencies
 
-`npm install`
+   `npm install`
 
 3. Mount a docker container using the bash script provided in the project
 
-`bash ./run.sh`
+   `bash ./run.sh`
 
 ## Usage
 
@@ -67,7 +67,6 @@ Create a user by registering using Google OAuth.
 Send a link provided in the confirmation e-mail to your friend.
 
 When he visits the link he will be able to see all your appointments and add one self.
-
 _For more examples, please read the docs_
 
 ## License
