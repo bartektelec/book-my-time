@@ -1,0 +1,44 @@
+{
+  "name": "book-my-time",
+  "version": "1.0.0",
+  "description": "appointment scheduling app",
+  "main": "app.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bartektelec/book-my-time.git"
+  },
+  "keywords": [
+    "schedule",
+    "appointment",
+    "calendar",
+    "book",
+    "time",
+    "meeting"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bartektelec/book-my-time/issues"
+  },
+  "homepage": "https://github.com/bartektelec/book-my-time#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/jest": "^26.0.10",
+    "@types/mongoose": "^5.7.36",
+    "@types/node": "^14.6.0",
+    "eslint": "^7.7.0",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.2.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ip": "^1.1.5",
+    "mongoose": "^5.10.0",
+    "passport": "^0.4.1"
+  }
+}
