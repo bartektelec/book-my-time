@@ -1,13 +1,10 @@
 {
-  "name": "book-my-time",
+  "name": "auth-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd ./client && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -33,15 +30,9 @@
     "mongoose": "^5.10.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
     "typescript": "~3.7.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "@tsconfig/node12": "^1.0.7",
     "@types/express": "^4.17.7",
     "@types/ip": "^1.1.0",
@@ -49,13 +40,10 @@
     "@types/mongoose": "^5.7.36",
     "@types/node": "^14.6.0",
     "@types/passport-google-oauth20": "^2.0.3",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "@typescript-eslint/parser": "^3.9.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-node": "^11.1.0",
@@ -63,6 +51,7 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
     "eslint-plugin-standard": "^4.0.1",
+    "jest": "^26.4.2",
     "ts-node": "^9.0.0"
   }
 }
