@@ -6,34 +6,49 @@ services:
     image: mongo:latest
     ports:
       - '27017-27019:27017-27019'
+    volumes:
+      - mongo_db:/data/db
     environment:
       MONGO_INITDB_DATABASE: test
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
-    volumes:
-      - ./mongo/data/db:/data/db/
+    networks:
+      net:
 
   auth:
     container_name: auth
     build: ./auth
-    ports:
-      - '5000:3000'
-    environment:
-      OAUTH_SECRET: sercretsecrrretsecret
-      OAUTH_USERID: userisueusersdsagsadsa
     depends_on:
       - db
     volumes:
       - ./auth:/app
-      - ./shared:/app/shared
-
-  ulimits: :
-    container_name: ui
-    build: ./ui
-    volumes:
-      - './ui:/app'
-      - '/app/node_modules'
     ports:
-      - 3001:3000
+      - '5001:3000'
     environment:
-      - CHOKIDAR_USEPOLLING=true
+      OAUTH_CALLBACK_URL: https://google.com
+      OAUTH_CLIENT_SECRET: o1MaxF-TGgX--JV_I6bC9vuz
+      OAUTH_CLIENT_ID: 8693809181-bo6t3q9l004rvgqq6q2bbtj4jft3g494.apps.googleusercontent.com
+      MONGO_DB_HOST: db
+      MONGO_DB_NAME: test
+      MONGO_DB_USERNAME: root
+      MONGO_DB_PASSWORD: rootpassword
+    networks:
+      net:
+
+networks:
+  net:
+    driver: bridge
+
+volumes:
+  mongo_db:
+  #auth:
+  # ulimits:
+  #   container_name: ui
+  #   build: ./ui
+  #   volumes:
+  #     - './ui:/app'
+  #     - '/app/node_modules'
+  #   ports:
+  #     - 3001:3000
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true

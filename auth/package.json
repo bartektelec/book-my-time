@@ -1,57 +1,51 @@
 {
-  "name": "auth-service",
+  "name": "auth",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "/src/app.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "nodemon"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bartektelec/book-my-time.git"
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   },
-  "keywords": [
-    "schedule",
-    "appointment",
-    "calendar",
-    "book",
-    "time",
-    "meeting"
-  ],
   "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bartektelec/book-my-time/issues"
-  },
-  "homepage": "https://github.com/bartektelec/book-my-time#readme",
+  "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "ip": "^1.1.5",
-    "mongoose": "^5.10.0",
+    "mongoose": "^5.9.25",
+    "node-fetch": "^2.6.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
-    "typescript": "~3.7.2"
+    "typescript": "^3.9.6"
   },
   "devDependencies": {
-    "@tsconfig/node12": "^1.0.7",
     "@types/express": "^4.17.7",
-    "@types/ip": "^1.1.0",
-    "@types/jest": "^26.0.10",
-    "@types/mongoose": "^5.7.36",
-    "@types/node": "^14.6.0",
+    "@types/jest": "^26.0.9",
+    "@types/mongoose": "^5.7.32",
+    "@types/node": "^14.0.22",
+    "@types/node-fetch": "^2.5.7",
+    "@types/passport": "^1.0.4",
     "@types/passport-google-oauth20": "^2.0.3",
-    "@typescript-eslint/eslint-plugin": "^3.9.1",
-    "@typescript-eslint/parser": "^3.9.1",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
-    "eslint-plugin-standard": "^4.0.1",
-    "jest": "^26.4.2",
-    "ts-node": "^9.0.0"
+    "jest": "^26.4.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.2.0",
+    "typescript": "^3.9.6"
   }
 }
