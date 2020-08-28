@@ -22,31 +22,31 @@ const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) 
 };
 
 router.get('/calendar/:id', tokenMiddleware, async (req: Request, res: Response) => {
+  const { BASEURL, EVENT } = API_ROUTES;
   console.log(req.currentUser);
 });
 
 // INITIATES NEW CALENDAR CALLED 'Book my Time'
-router.get('/init', async (req, res) => {
+router.post('/init', async (req, res) => {
   const { BASEURL, CALENDAR_LIST, CALENDAR } = API_ROUTES;
   try {
-    const response = await fetch(`${BASEURL}${CALENDAR_LIST}`);
+    const response = await fetch(`${BASEURL}${CALENDAR_LIST}`, {
+      headers: { Authorization: `${req.headers.authorization}` },
+    });
     const existingCalendars: CalendarList = await response.json();
 
-    console.log(existingCalendars);
+    const doesCalendarExist: boolean = existingCalendars.items.some((item) => item.summary === 'Book my time');
+    if (doesCalendarExist) return res.json(existingCalendars.items.find((item) => item.summary === 'Book my time'));
 
-    if (!existingCalendars.items.some((item) => item.summary === 'Book my time')) {
-      // create a new calendar
-
-      const postResponse = await fetch(`${BASEURL}${CALENDAR}`, {
-        method: 'POST',
-        body: JSON.stringify({ summary: 'Book my time' }),
-      });
-      const newCalendar: Calendar = await postResponse.json();
-
-      return res.json(newCalendar);
-    }
-    // if there is a calendar called 'Book my time'
-    return res.json(existingCalendars.items.find((item) => item.summary === 'Book my time'));
+    const postResponse = await fetch(`${BASEURL}${CALENDAR}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `${req.headers.authorization}`,
+      },
+      body: JSON.stringify({ summary: 'Book my time' }),
+    });
+    const newCalendar: Calendar = await postResponse.json();
+    return res.json(newCalendar);
   } catch (error) {
     console.log('Calendar service failed: ' + error);
   }

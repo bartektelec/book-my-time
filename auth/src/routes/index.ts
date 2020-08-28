@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import fetch, { RequestInfo } from 'node-fetch';
 import passport from 'passport';
 const router = Router();
 
@@ -16,11 +17,25 @@ router.get(
   passport.authenticate('google', {
     failureRedirect: '/',
   }),
+  //TODO SET TYPE OF CALENDARRESPJSON AND REQ WITH USER
   async function (req: any, res: Response) {
+    const CALENDAR_IP = `http://${process.env.CALENDAR_IP}:3000` as RequestInfo;
     console.log(req.user);
-    const { _id, email, refreshToken, accessToken, displayName } = req.user;
-    const stringParams = `?_id=${_id}&email=${email}&accessToken=${accessToken}&refreshToken=${refreshToken}&displayName=${displayName}`;
-    res.redirect(`${process.env.OAUTH_CALLBACK_URL}${stringParams}`);
+    const { id, accessToken } = req.user;
+
+    try {
+      const calendarResp = await fetch(`${CALENDAR_IP}/init`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const calendarRespJson = await calendarResp.json();
+      console.log(calendarRespJson);
+      res.redirect(`${process.env.OAUTH_CALLBACK_URL}?id=${id}`);
+    } catch (err) {
+      return res.json(err);
+    }
   }
 );
 
