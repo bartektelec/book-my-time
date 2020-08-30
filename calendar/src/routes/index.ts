@@ -6,13 +6,8 @@ import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
 
 import User, { IUser } from '../model/User';
-
-const API_ROUTES = {
-  BASEURL: 'https://www.googleapis.com/calendar/v3/',
-  CALENDAR_LIST: 'users/me/calendarList/',
-  CALENDAR: 'calendars/',
-  EVENT: 'events/',
-};
+import CalendarApiHandler from '../calendarApiHandler/index';
+import calendarAPIHandler from '../calendarApiHandler/index';
 
 const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.findById(req.params.id);
@@ -22,33 +17,19 @@ const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) 
 };
 
 router.get('/calendar/:id', tokenMiddleware, async (req: Request, res: Response) => {
-  const { BASEURL, EVENT } = API_ROUTES;
   console.log(req.currentUser);
 });
 
 // INITIATES NEW CALENDAR CALLED 'Book my Time'
+// TODO PASS TOKEN INSTEAD OF HEADER?
 router.post('/init', async (req, res) => {
-  const { BASEURL, CALENDAR_LIST, CALENDAR } = API_ROUTES;
   try {
-    const response = await fetch(`${BASEURL}${CALENDAR_LIST}`, {
-      headers: { Authorization: `${req.headers.authorization}` },
-    });
-    const existingCalendars: CalendarList = await response.json();
-
+    const existingCalendars: CalendarList = await calendarAPIHandler.getCalendars(`${req.headers.authorization}`);
     const doesCalendarExist: boolean = existingCalendars.items.some((item) => item.summary === 'Book my time');
     if (doesCalendarExist) return res.json(existingCalendars.items.find((item) => item.summary === 'Book my time'));
-
-    const postResponse = await fetch(`${BASEURL}${CALENDAR}`, {
-      method: 'POST',
-      headers: {
-        Authorization: `${req.headers.authorization}`,
-      },
-      body: JSON.stringify({ summary: 'Book my time' }),
-    });
-    const newCalendar: Calendar = await postResponse.json();
-    return res.json(newCalendar);
+    return calendarAPIHandler.createCalendar(`${req.headers.authorization}`);
   } catch (error) {
-    console.log('Calendar service failed: ' + error);
+    console.error(error);
   }
 });
 
