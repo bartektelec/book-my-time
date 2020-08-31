@@ -1,11 +1,16 @@
+// packages
 import { Router, Request, Response, NextFunction } from 'express';
-const router = Router();
 
+// modules
+import User from '../model/User';
+import calendarAPIHandler from '../calendarApiHandler/index';
+
+// types
 import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
+import { CalendarEvent, CalendarEventResponse } from '../../@types/googleApi/CalendarEvents';
 
-import User from '../model/User';
-import calendarAPIHandler, { CalendarEvent } from '../calendarApiHandler/index';
+const router = Router();
 
 const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.findById(req.params.id);
@@ -55,8 +60,7 @@ router.post('/addEvent/:id', tokenMiddleware, async (req, res) => {
       attendees,
     };
 
-    const eventRequest = await calendarAPIHandler.addEvent(eventDetails);
-    console.log(req.currentUser);
+    const eventRequest: CalendarEventResponse = await calendarAPIHandler.addEvent(eventDetails);
     return res.json(eventRequest);
   } catch (error) {
     return res.json(error);

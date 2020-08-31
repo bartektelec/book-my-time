@@ -2,36 +2,14 @@ import fetch from 'node-fetch';
 import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
 
+import { CalendarEvent } from '../../@types/googleApi/CalendarEvents';
+
 const API_ROUTES = {
   BASEURL: 'https://www.googleapis.com/calendar/v3/',
   CALENDAR_LIST: 'users/me/calendarList/',
   CALENDAR: 'calendars/',
   EVENT: 'events/',
 };
-export interface EventTime {
-  date?: string;
-  dateTime?: string;
-  timeZone?: string;
-}
-
-export interface Attendee {
-  displayName: string;
-  email: string;
-  optional?: boolean;
-  resource?: boolean;
-  comment?: string;
-  additionalGuests?: number;
-  responseStatus?: string;
-}
-export interface CalendarEvent {
-  authHeader: string;
-  calendarId: string;
-  start: EventTime;
-  end: EventTime;
-  summary: string;
-  description: string;
-  attendees: Attendee[];
-}
 
 class calendarAPIHandler {
   static getCalendars = async (authHeader: string) => {
