@@ -1,4 +1,4 @@
-export interface Calendar {
+export interface CalendarResponse {
   kind: string;
   etag: string;
   id: string;
