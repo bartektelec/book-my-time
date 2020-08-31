@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import fetch from 'node-fetch';
 const router = Router();
 
 import { CalendarList } from '../../@types/googleApi/CalendarList';

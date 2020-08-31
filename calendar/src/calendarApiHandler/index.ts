@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
 
