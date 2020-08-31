@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import fetch, { RequestInfo } from 'node-fetch';
 import passport from 'passport';
-import { Calendar } from '../../@types/googleApi/Calendar';
 import { IUser } from '../model/User';
+import { CalendarResponse } from '../../@types/Calendar/Calendar';
 const router = Router();
 
 router.post(
@@ -31,7 +31,7 @@ router.get(
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      const calendarRespJson: Calendar = await calendarResp.json();
+      const calendarRespJson: CalendarResponse = await calendarResp.json();
       console.log(calendarRespJson);
       res.redirect(`${process.env.OAUTH_CALLBACK_URL}?id=${id}`);
     } catch (err) {
