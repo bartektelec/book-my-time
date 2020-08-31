@@ -8,6 +8,30 @@ const API_ROUTES = {
   CALENDAR: 'calendars/',
   EVENT: 'events/',
 };
+export interface EventTime {
+  date?: string;
+  dateTime?: string;
+  timeZone?: string;
+}
+
+export interface Attendee {
+  displayName: string;
+  email: string;
+  optional?: boolean;
+  resource?: boolean;
+  comment?: string;
+  additionalGuests?: number;
+  responseStatus?: string;
+}
+export interface CalendarEvent {
+  authHeader: string;
+  calendarId: string;
+  start: EventTime;
+  end: EventTime;
+  summary: string;
+  description: string;
+  attendees: Attendee[];
+}
 
 class calendarAPIHandler {
   static getCalendars = async (authHeader: string) => {
@@ -28,6 +52,24 @@ class calendarAPIHandler {
     });
     const newCalendar: Calendar = await postResponse.json();
     return newCalendar;
+  };
+
+  static addEvent = async ({ authHeader, calendarId, start, end, summary, description, attendees }: CalendarEvent) => {
+    const { BASEURL, CALENDAR, EVENT } = API_ROUTES;
+    const queryURI = `${BASEURL}${CALENDAR}${calendarId}/${EVENT}`;
+    const response = await fetch(queryURI, {
+      method: 'POST',
+      headers: { Authorization: authHeader },
+      body: JSON.stringify({
+        summary,
+        start,
+        end,
+        description,
+        attendees,
+      }),
+    });
+    const responseJSON = await response.json();
+    return responseJSON;
   };
 }
 

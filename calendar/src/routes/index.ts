@@ -5,7 +5,7 @@ import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
 
 import User from '../model/User';
-import calendarAPIHandler from '../calendarApiHandler/index';
+import calendarAPIHandler, { CalendarEvent } from '../calendarApiHandler/index';
 
 const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.findById(req.params.id);
@@ -36,6 +36,28 @@ router.post('/init', async (req, res) => {
     const calendar: Calendar | undefined = existingCalendars.items.find((item) => item.summary === 'Book my time');
     if (!calendar) return await calendarAPIHandler.createCalendar(`${req.headers.authorization}`);
     return res.json(calendar);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.post('/addEvent/:id', tokenMiddleware, async (req, res) => {
+  try {
+    const { calendarId, summary, start, end, description, attendees } = req.body;
+
+    const eventDetails: CalendarEvent = {
+      authHeader: `Bearer ${req.currentUser?.accessToken}`,
+      calendarId,
+      summary,
+      start,
+      end,
+      description,
+      attendees,
+    };
+
+    const eventRequest = await calendarAPIHandler.addEvent(eventDetails);
+    console.log(req.currentUser);
+    return res.json(eventRequest);
   } catch (error) {
     return res.json(error);
   }
