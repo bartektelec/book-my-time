@@ -83,7 +83,7 @@ router.get('/cancel/:id/:eventId', tokenMiddleware, async (req, res) => {
       eventId,
     };
     await calendarAPIHandler.removeEvent(requestDetails);
-    return { status: 200, message: 'ok' };
+    return res.json({ status: 200, message: 'ok' });
   } catch (error) {
     return res.json(error);
   }
