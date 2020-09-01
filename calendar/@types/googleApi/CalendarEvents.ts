@@ -12,7 +12,7 @@ export interface Attendee {
   comment?: string;
   additionalGuests?: number;
   responseStatus?: string;
-  self?: boolean
+  self?: boolean;
 }
 export interface CalendarEvent {
   authHeader: string;
@@ -24,20 +24,26 @@ export interface CalendarEvent {
   attendees: Attendee[];
 }
 
+export interface RemoveEventParams {
+  authHeader: string;
+  calendarId: string;
+  eventId: string;
+}
+
 export interface CalendarEventResponse {
-  kind: string,
-  etag: string,
-  id: string,
-  status: string,
-  htmlLink: string,
-  created: string,
-  updated: string,
-  summary: string,
-  creator: Attendee,
-  organizer: Attendee,
-  start: EventTime,
-  end: EventTime,
-  iCalUID: string,
-  sequence: number,
-  reminders?: any,
+  kind: string;
+  etag: string;
+  id: string;
+  status: string;
+  htmlLink: string;
+  created: string;
+  updated: string;
+  summary: string;
+  creator: Attendee;
+  organizer: Attendee;
+  start: EventTime;
+  end: EventTime;
+  iCalUID: string;
+  sequence: number;
+  reminders?: any;
 }

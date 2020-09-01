@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
 
-import { CalendarEvent } from '../../@types/googleApi/CalendarEvents';
+import { CalendarEvent, RemoveEventParams } from '../../@types/googleApi/CalendarEvents';
 
 const API_ROUTES = {
   BASEURL: 'https://www.googleapis.com/calendar/v3/',
@@ -48,6 +48,17 @@ class calendarAPIHandler {
     });
     const responseJSON = await response.json();
     return responseJSON;
+  };
+
+  static removeEvent = async ({ authHeader, calendarId, eventId }: RemoveEventParams) => {
+    const { BASEURL, CALENDAR, EVENT } = API_ROUTES;
+    const queryURI = `${BASEURL}${CALENDAR}${calendarId}/${EVENT}${eventId}`;
+    const response = await fetch(queryURI, {
+      method: 'DELETE',
+      headers: { Authorization: authHeader },
+    });
+
+    return await response.json();
   };
 }
 

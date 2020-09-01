@@ -8,7 +8,8 @@ import calendarAPIHandler from '../calendarApiHandler/index';
 // types
 import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
-import { CalendarEvent, CalendarEventResponse } from '../../@types/googleApi/CalendarEvents';
+import { CalendarEvent, CalendarEventResponse, RemoveEventParams } from '../../@types/googleApi/CalendarEvents';
+import fetch from 'node-fetch';
 
 const router = Router();
 
@@ -46,6 +47,9 @@ router.post('/init', async (req, res) => {
   }
 });
 
+// REVIEW Consider getting calendarId using GET /calendar/:id route,
+// instead of passing it as a body parameter
+
 router.post('/addEvent/:id', tokenMiddleware, async (req, res) => {
   try {
     const { calendarId, summary, start, end, description, attendees } = req.body;
@@ -62,6 +66,24 @@ router.post('/addEvent/:id', tokenMiddleware, async (req, res) => {
 
     const eventRequest: CalendarEventResponse = await calendarAPIHandler.addEvent(eventDetails);
     return res.json(eventRequest);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.get('/cancel/:id/:eventId', tokenMiddleware, async (req, res) => {
+  try {
+    const { eventId, id } = req.params;
+    const requestURI = `http://calendar:3000/calendar/${id}`;
+    const calendarInfo = await fetch(requestURI);
+    const calendarInfoJSON = await calendarInfo.json();
+    const requestDetails: RemoveEventParams = {
+      authHeader: `Bearer ${req.currentUser?.accessToken}`,
+      calendarId: calendarInfoJSON.id,
+      eventId,
+    };
+    await calendarAPIHandler.removeEvent(requestDetails);
+    return { status: 200, message: 'ok' };
   } catch (error) {
     return res.json(error);
   }
