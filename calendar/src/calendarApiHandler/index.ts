@@ -2,7 +2,8 @@ import fetch from 'node-fetch';
 import { CalendarList } from '../../@types/googleApi/CalendarList';
 import { Calendar } from '../../@types/googleApi/Calendar';
 
-import { CalendarEvent, RemoveEventParams } from '../../@types/googleApi/CalendarEvents';
+import { CalendarEvent, RemoveEventParams, CalendarEventList } from '../../@types/googleApi/CalendarEvents';
+import { response } from 'express';
 
 const API_ROUTES = {
   BASEURL: 'https://www.googleapis.com/calendar/v3/',
@@ -21,6 +22,15 @@ class calendarAPIHandler {
     return existingCalendars;
   };
 
+  static getCalendar = async (authHeader: string, calendarId: string) => {
+    const { BASEURL, CALENDAR } = API_ROUTES;
+    const response = await fetch(`${BASEURL}${CALENDAR}${calendarId}`, {
+      headers: { Authorization: authHeader },
+    });
+    const calendar: Calendar = await response.json();
+    return calendar;
+  };
+
   static createCalendar = async (authHeader: string) => {
     const { BASEURL, CALENDAR } = API_ROUTES;
     const postResponse = await fetch(`${BASEURL}${CALENDAR}`, {
@@ -30,6 +40,15 @@ class calendarAPIHandler {
     });
     const newCalendar: Calendar = await postResponse.json();
     return newCalendar;
+  };
+
+  static getEvents = async (authHeader: string, calendarId: string) => {
+    const { BASEURL, CALENDAR, EVENT } = API_ROUTES;
+    const response = await fetch(`${BASEURL}${CALENDAR}${calendarId}/${EVENT}`, {
+      headers: { Authorization: authHeader },
+    });
+    const calendarEventList: CalendarEventList = await response.json();
+    return calendarEventList;
   };
 
   static addEvent = async ({ authHeader, calendarId, start, end, summary, description, attendees }: CalendarEvent) => {
@@ -57,8 +76,9 @@ class calendarAPIHandler {
       method: 'DELETE',
       headers: { Authorization: authHeader },
     });
-
-    return await response.json();
+    const respJson = await response.json();
+    console.log(respJson);
+    return respJson;
   };
 }
 

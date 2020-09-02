@@ -6,6 +6,7 @@ export interface IUser extends mongoose.Document {
   refreshToken: string;
   accessToken: string;
   displayName: string;
+  calendarId: string;
 }
 
 const UserSchema = new mongoose.Schema({
@@ -14,6 +15,7 @@ const UserSchema = new mongoose.Schema({
   refreshToken: String,
   accessToken: String,
   displayName: String,
+  calendarId: String,
 });
 
 const User = mongoose.model<IUser>('User', UserSchema);

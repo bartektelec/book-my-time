@@ -25,7 +25,7 @@ router.get(
     const { id, accessToken } = req.user as IUser;
 
     try {
-      const calendarResp = await fetch(`${CALENDAR_IP}/init`, {
+      const calendarResp = await fetch(`${CALENDAR_IP}/init/${id}`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,

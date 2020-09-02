@@ -1,3 +1,5 @@
+import { Calendar } from './Calendar';
+
 export interface EventTime {
   date?: string;
   dateTime?: string;
@@ -14,6 +16,7 @@ export interface Attendee {
   responseStatus?: string;
   self?: boolean;
 }
+
 export interface CalendarEvent {
   authHeader: string;
   calendarId: string;
@@ -22,6 +25,12 @@ export interface CalendarEvent {
   summary: string;
   description: string;
   attendees: Attendee[];
+}
+
+export interface CalendarEventList extends Calendar {
+  nextPageToken: string;
+  nextSyncToken: string;
+  items: CalendarEvent[];
 }
 
 export interface RemoveEventParams {

@@ -7,6 +7,7 @@ export interface IUser extends mongoose.Document {
   refreshToken: string;
   accessToken: string;
   displayName: string;
+  calendarId: string;
 }
 
 export interface IUserModel extends mongoose.Model<IUser> {
@@ -19,6 +20,7 @@ const UserSchema = new mongoose.Schema({
   refreshToken: String,
   accessToken: String,
   displayName: String,
+  calendarId: String,
 });
 
 UserSchema.statics.findOneOrCreate = async function findOneOrCreate(
