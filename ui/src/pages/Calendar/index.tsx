@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Calendar() {
-  return <></>;
-}
+const Calendar: React.FC = () => {
+  return <h2>calendar</h2>;
+};
 
 export default Calendar;

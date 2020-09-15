@@ -1,14 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useCallback } from 'react';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
+import { useParams } from 'react-router-dom';
 
-interface IProps {
-  userId: string;
-}
+const copyToClipboard = (text: string): void => {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textArea);
+};
 
-const SuccessInit: React.FC<IProps> = ({ userId }) => {
-  const personalLink = `http://bookmytime.com/calendar/${userId}`;
+const SuccessInit: React.FC = () => {
+  const { id } = useParams();
+  const [copyButtonText, setCopyButtonText] = useState('Copy to clipboard');
+  const personalLink = `http://bookmytime.com/calendar/${id}`;
+
+  const copyButtonOnclick = useCallback(() => {
+    copyToClipboard(personalLink);
+    setCopyButtonText('Copied!');
+  }, []);
+
   return (
     <Container>
       <h1>Book My Time</h1>
@@ -18,8 +31,8 @@ const SuccessInit: React.FC<IProps> = ({ userId }) => {
         you:
       </p>
       <a href={personalLink}>{personalLink}</a>
-      <Button my="1rem" w="50px" variant="secondary">
-        Copy to clipboard
+      <Button onClick={() => copyButtonOnclick()} my="1rem" w="50px" variant="secondary">
+        {copyButtonText}
       </Button>
     </Container>
   );

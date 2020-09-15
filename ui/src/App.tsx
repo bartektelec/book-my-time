@@ -3,13 +3,25 @@ import Home from './pages/Home/';
 import SuccessInit from './pages/SuccessInit/';
 import Calendar from './pages/Calendar';
 import GlobalStyle from './common/globalStyles';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
+    <Router>
       <GlobalStyle />
-      <SuccessInit userId="asd" />
-    </div>
+
+      <Switch>
+        <Route path="/calendar/:id">
+          <Calendar />
+        </Route>
+        <Route path="/success/:id">
+          <SuccessInit />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

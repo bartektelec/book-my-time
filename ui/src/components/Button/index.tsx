@@ -23,7 +23,8 @@ const Button = styled.button<Partial<IButton>>`
   padding: 1rem;
   width: 100%;
   color: ${({ variant }) => (variant ? variables.colors[variant] : '#2f855a')};
-  :hover {
+  :hover,
+  :focus {
     filter: brightness(0.9) contrast(1.1);
   }
 `;
