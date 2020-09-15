@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
     p {
         font-weight: 300;
     }
+
+    a {
+        color: #0055FF;
+        text-decoration: none;
+    }
 `;
 
 export default GlobalStyle;
