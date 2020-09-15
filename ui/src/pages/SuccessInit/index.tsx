@@ -18,7 +18,9 @@ const SuccessInit: React.FC<IProps> = ({ userId }) => {
         you:
       </p>
       <a href={personalLink}>{personalLink}</a>
-      <Button color="secondary">Copy to clipboard</Button>
+      <Button my="1rem" w="50px" variant="secondary">
+        Copy to clipboard
+      </Button>
     </Container>
   );
 };
