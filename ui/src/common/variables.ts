@@ -19,6 +19,7 @@ const variables: IVariables = {
     secondary: '#FEEBC8',
     disabled: '#CBD5E0',
     danger: '#FEB2B2',
+    unavailable: '#E2E9F0',
   },
 };
 
