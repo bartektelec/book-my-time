@@ -7,14 +7,14 @@ import User from '../model/User';
 import calendarAPIHandler from '../calendarApiHandler/index';
 
 // types
-import { CalendarList } from '../../@types/googleApi/CalendarList';
-import { Calendar } from '../../@types/googleApi/Calendar';
+import { CalendarList } from '../../interfaces/CalendarList';
+import { Calendar } from '../../interfaces/Calendar';
 import {
   CalendarEvent,
   CalendarEventResponse,
   RemoveEventParams,
   CalendarEventList,
-} from '../../@types/googleApi/CalendarEvents';
+} from '../../interfaces/CalendarEvents';
 
 const router = Router();
 

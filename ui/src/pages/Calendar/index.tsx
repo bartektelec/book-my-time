@@ -24,6 +24,7 @@ const Calendar: React.FC = () => {
     };
     fetchCalendarEvents();
   }, [id]);
+
   return <h2>calendar</h2>;
 };
 
