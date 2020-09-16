@@ -3,7 +3,6 @@ import { CalendarList } from '../../interfaces/CalendarList';
 import { Calendar } from '../../interfaces/Calendar';
 
 import { CalendarEvent, RemoveEventParams, CalendarEventList } from '../../interfaces/CalendarEvents';
-import { response } from 'express';
 
 const API_ROUTES = {
   BASEURL: 'https://www.googleapis.com/calendar/v3/',
