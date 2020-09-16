@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import moment from 'moment';
+import styled from 'styled-components';
+import AppointmentColumn from '../../components/Calendar/AppointmentsColumn';
+import HoursColumn from '../../components/Calendar/HoursColumn';
 
 const CALENDAR_URL = `http://localhost:5002`;
 
 interface IParams {
   id: string;
 }
+
+const CalendarContainer = styled.div`
+  display: flex;
+`;
 
 const Calendar: React.FC = () => {
   const { id } = useParams<IParams>();
@@ -24,7 +30,16 @@ const Calendar: React.FC = () => {
     };
     fetchCalendarEvents();
   }, [id]);
-  return <h2>calendar</h2>;
+
+  return (
+    <CalendarContainer>
+      <HoursColumn />
+      <AppointmentColumn>
+        <button>1</button>
+        <button>2</button>
+      </AppointmentColumn>
+    </CalendarContainer>
+  );
 };
 
 export default Calendar;
