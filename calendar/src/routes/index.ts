@@ -19,10 +19,15 @@ import {
 const router = Router();
 
 const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const user = await User.findById(req.params.id);
-  if (!user) return;
-  req.currentUser = user;
-  next();
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ msg: 'id not found' });
+    req.currentUser = user;
+    next();
+  } catch (err) {
+    console.error(err);
+    return res.json(err);
+  }
 };
 
 router.get('/calendar/:id', tokenMiddleware, async (req: Request, res: Response) => {

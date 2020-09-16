@@ -14,6 +14,11 @@ router.post(
   })
 );
 
+router.post('/test', (req: Request, res: Response) => {
+  console.log('DABEROO');
+  res.send('ok');
+});
+
 router.get(
   '/callback',
   passport.authenticate('google', {
@@ -33,7 +38,7 @@ router.get(
       });
       const calendarRespJson: CalendarResponse = await calendarResp.json();
       console.log(calendarRespJson);
-      res.redirect(`${process.env.OAUTH_CALLBACK_URL}?id=${id}`);
+      res.redirect(`${process.env.OAUTH_CALLBACK_URL}/${id}`);
     } catch (err) {
       return res.json(err);
     }

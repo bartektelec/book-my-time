@@ -9,7 +9,6 @@ function App() {
   return (
     <Router>
       <GlobalStyle />
-
       <Switch>
         <Route path="/calendar/:id">
           <Calendar />

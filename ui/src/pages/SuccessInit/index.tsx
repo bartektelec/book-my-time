@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import { useParams } from 'react-router-dom';
+import Calendar from '../Calendar';
 
 const copyToClipboard = (text: string): void => {
   const textArea = document.createElement('textarea');
@@ -12,8 +13,12 @@ const copyToClipboard = (text: string): void => {
   document.body.removeChild(textArea);
 };
 
+interface IParams {
+  id: string;
+}
+
 const SuccessInit: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<IParams>();
   const [copyButtonText, setCopyButtonText] = useState('Copy to clipboard');
   const personalLink = `http://bookmytime.com/calendar/${id}`;
 
@@ -34,6 +39,7 @@ const SuccessInit: React.FC = () => {
       <Button onClick={() => copyButtonOnclick()} my="1rem" w="50px" variant="secondary">
         {copyButtonText}
       </Button>
+      <Calendar />
     </Container>
   );
 };
