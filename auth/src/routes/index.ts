@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import fetch, { RequestInfo } from 'node-fetch';
 import passport from 'passport';
 import { IUser } from '../model/User';
-import { CalendarResponse } from '../../@types/Calendar/Calendar';
+import { CalendarResponse } from '../../interfaces/Calendar';
 const router = Router();
 
 router.post(

@@ -1,9 +1,8 @@
 import fetch from 'node-fetch';
-import { CalendarList } from '../../@types/googleApi/CalendarList';
-import { Calendar } from '../../@types/googleApi/Calendar';
+import { CalendarList } from '../../interfaces/CalendarList';
+import { Calendar } from '../../interfaces/Calendar';
 
-import { CalendarEvent, RemoveEventParams, CalendarEventList } from '../../@types/googleApi/CalendarEvents';
-import { response } from 'express';
+import { CalendarEvent, RemoveEventParams, CalendarEventList } from '../../interfaces/CalendarEvents';
 
 const API_ROUTES = {
   BASEURL: 'https://www.googleapis.com/calendar/v3/',
