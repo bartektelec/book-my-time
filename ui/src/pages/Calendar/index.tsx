@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AppointmentColumn from '../../components/Calendar/AppointmentsColumn';
 import HoursColumn from '../../components/Calendar/HoursColumn';
+import ScheduleBtn from '../../components/ScheduleBtn';
 
 const CALENDAR_URL = `http://localhost:5002`;
 
@@ -31,12 +32,26 @@ const Calendar: React.FC = () => {
     fetchCalendarEvents();
   }, [id]);
 
+  const MockBtns = () => (
+    <>
+      <ScheduleBtn variant="free" />
+      <ScheduleBtn variant="busy" />
+      <ScheduleBtn variant="free" />
+      <ScheduleBtn variant="free" />
+      <ScheduleBtn variant="free" />
+      <ScheduleBtn variant="busy" />
+      <ScheduleBtn variant="free" />
+      <ScheduleBtn variant="busy" />
+      <ScheduleBtn variant="free" />
+      <ScheduleBtn variant="free" />
+    </>
+  );
+
   return (
     <CalendarContainer>
       <HoursColumn />
       <AppointmentColumn>
-        <button>1</button>
-        <button>2</button>
+        <MockBtns />
       </AppointmentColumn>
     </CalendarContainer>
   );

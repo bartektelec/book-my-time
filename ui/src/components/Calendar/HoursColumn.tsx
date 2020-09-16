@@ -15,15 +15,23 @@ const getHourArray = (hourStart: number = 8, hourEnd: number = 20): Array<string
 };
 
 const StickyColumn = styled.div`
+  display: flex;
+  flex-direction: column;
   position: sticky;
   color: ${variables.colors.disabled};
+  gap: 1rem;
+`;
+
+const StyledHour = styled.p`
+  height: 60px;
+  margin: 0;
 `;
 
 const HoursColumn: React.FC = () => {
   return (
     <StickyColumn>
       {getHourArray().map((hour) => {
-        return <p key={hour}>{hour}</p>;
+        return <StyledHour key={hour}>{hour}</StyledHour>;
       })}
     </StickyColumn>
   );
