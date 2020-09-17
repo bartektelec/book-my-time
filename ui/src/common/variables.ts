@@ -5,6 +5,10 @@ export interface IVariables {
   backgroundColors: {
     [key: string]: string;
   };
+
+  shadows: {
+    [key: string]: string;
+  };
 }
 
 const variables: IVariables = {
@@ -20,6 +24,9 @@ const variables: IVariables = {
     disabled: '#CBD5E0',
     danger: '#FEB2B2',
     unavailable: '#E2E9F0',
+  },
+  shadows: {
+    lg: '0px 8px 24px -8px rgba(0,0,0,.25)',
   },
 };
 
