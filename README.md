@@ -27,9 +27,16 @@ You will be able to cancel appointments simply by clicking a link provided in th
 
 ### Built with
 
-- TypeScript
-- MongoDB
-- Passport.js
+- 🐳 [Docker](https://www.docker.com/)
+- 📘 [TypeScript](https://www.typescriptlang.org/)
+- 🗄 [MongoDB](https://www.mongodb.com/)
+- 🔑 [Passport.js](http://www.passportjs.org/)
+- 📆 [Google Calendar API & OAuth2](https://developers.google.com/calendar/)
+- 📬 [Nodemailer](https://nodemailer.com/)
+- ⚛️ [React](https://reactjs.org/)
+- 🖼 [Figma](https://www.figma.com/file/UPFlVPqmB5Uyj7SJLAOq3C/book-my-time)
+- 📝 [Notion](https://notion.so/)
+- ❤️ [Eva icons](https://akveo.github.io/eva-icons/#/)
 
 ## Getting started
 
