@@ -2,7 +2,7 @@ import { Calendar } from './Calendar';
 
 export interface EventTime {
   date?: string;
-  dateTime?: string;
+  dateTime: string;
   timeZone?: string;
 }
 
@@ -55,4 +55,5 @@ export interface CalendarEventResponse {
   iCalUID: string;
   sequence: number;
   reminders?: any;
+  transparency?: string;
 }

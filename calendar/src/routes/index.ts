@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 
 // modules
 import User from '../model/User';
-import calendarAPIHandler from '../calendarApiHandler/index';
+import CalendarApiHandler from '../calendarApiHandler/index';
 
 // types
 import { CalendarList } from '../../interfaces/CalendarList';
@@ -34,7 +34,7 @@ router.get('/calendar/:id', tokenMiddleware, async (req: Request, res: Response)
   console.log('calendar!');
   try {
     const { accessToken, calendarId } = req.currentUser;
-    const calendar: Calendar = await calendarAPIHandler.getCalendar(`Bearer ${accessToken}`, calendarId);
+    const calendar: Calendar = await CalendarApiHandler.getCalendar(`Bearer ${accessToken}`, calendarId);
     return res.json(calendar);
   } catch (error) {
     return res.json(error);
@@ -45,10 +45,10 @@ router.get('/calendar/:id', tokenMiddleware, async (req: Request, res: Response)
 // REVIEW PASS TOKEN INSTEAD OF HEADER?
 router.post('/init/:id', tokenMiddleware, async (req, res) => {
   try {
-    const existingCalendars: CalendarList = await calendarAPIHandler.getCalendars(`${req.headers.authorization}`);
+    const existingCalendars: CalendarList = await CalendarApiHandler.getCalendars(`${req.headers.authorization}`);
     const calendar: Calendar | undefined = existingCalendars.items.find((item) => item.summary === 'Book my time');
     if (!calendar) {
-      const newCalendar = await calendarAPIHandler.createCalendar(`${req.headers.authorization}`);
+      const newCalendar = await CalendarApiHandler.createCalendar(`${req.headers.authorization}`);
       await User.updateOne({ _id: req.currentUser._id }, { calendarId: newCalendar.id });
       return res.json(newCalendar);
     }
@@ -62,9 +62,24 @@ router.get('/calendar/events/:id', tokenMiddleware, async (req, res) => {
   console.log('calendarevents!');
   try {
     const { accessToken, calendarId } = req.currentUser;
-    const calendarEventList: CalendarEventList = await calendarAPIHandler.getEvents(
+
+    // SET MIN TIME FOR GOOGLE CALENDAR API EVENTS TO BE TODAY AT 00:00 AND
+    // MAX TIME TO BE 14 DAYS AHEAD
+    const timeMin = new Date();
+    const timeMax = new Date();
+    const daysAhead = 14;
+    timeMin.setHours(0, 0, 0, 0);
+    timeMax.setDate(timeMax.getDate() + daysAhead + 1);
+    timeMax.setHours(0, 0, 0, 0);
+
+    console.log(timeMin);
+    console.log(timeMax);
+
+    const calendarEventList: CalendarEventList = await CalendarApiHandler.getEvents(
       `Bearer ${accessToken}`,
-      calendarId
+      calendarId,
+      timeMin.toISOString(),
+      timeMax.toISOString()
     );
     return res.json(calendarEventList);
   } catch (error) {
@@ -86,7 +101,7 @@ router.post('/addEvent/:id', tokenMiddleware, async (req, res) => {
       attendees,
     };
 
-    const eventRequest: CalendarEventResponse = await calendarAPIHandler.addEvent(eventDetails);
+    const eventRequest: CalendarEventResponse = await CalendarApiHandler.addEvent(eventDetails);
     return res.json(eventRequest);
   } catch (error) {
     return res.json(error);
@@ -104,7 +119,7 @@ router.get('/cancel/:id/:eventId', tokenMiddleware, async (req, res) => {
       calendarId: calendarInfoJSON.id,
       eventId,
     };
-    await calendarAPIHandler.removeEvent(requestDetails);
+    await CalendarApiHandler.removeEvent(requestDetails);
     return res.json({ status: 200, message: 'ok' });
   } catch (error) {
     return res.json(error);

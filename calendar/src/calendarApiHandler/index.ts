@@ -11,7 +11,7 @@ const API_ROUTES = {
   EVENT: 'events/',
 };
 
-class calendarAPIHandler {
+class CalendarAPIHandler {
   static getCalendars = async (authHeader: string) => {
     const { BASEURL, CALENDAR_LIST } = API_ROUTES;
     const response = await fetch(`${BASEURL}${CALENDAR_LIST}`, {
@@ -41,13 +41,21 @@ class calendarAPIHandler {
     return newCalendar;
   };
 
-  static getEvents = async (authHeader: string, calendarId: string) => {
-    const { BASEURL, CALENDAR, EVENT } = API_ROUTES;
-    const response = await fetch(`${BASEURL}${CALENDAR}${calendarId}/${EVENT}`, {
-      headers: { Authorization: authHeader },
-    });
-    const calendarEventList: CalendarEventList = await response.json();
-    return calendarEventList;
+  static getEvents = async (authHeader: string, calendarId: string, timeMin: string, timeMax: string) => {
+    try {
+      const { BASEURL, CALENDAR, EVENT } = API_ROUTES;
+      const response = await fetch(
+        `${BASEURL}${CALENDAR}${calendarId}/${EVENT}?timeMin=${timeMin}&timeMax=${timeMax}`,
+        {
+          headers: { Authorization: authHeader },
+        }
+      );
+      const calendarEventList: CalendarEventList = await response.json();
+      return calendarEventList;
+    } catch (err) {
+      console.error(err);
+      return err;
+    }
   };
 
   static addEvent = async ({ authHeader, calendarId, start, end, summary, description, attendees }: CalendarEvent) => {
@@ -81,4 +89,4 @@ class calendarAPIHandler {
   };
 }
 
-export default calendarAPIHandler;
+export default CalendarAPIHandler;
